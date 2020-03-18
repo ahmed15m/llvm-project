@@ -72,6 +72,11 @@ Improvements to clang-tidy
   :doc:`cppcoreguidelines-init-variables
   <clang-tidy/checks/cppcoreguidelines-init-variables>` and
   :doc:`modernize-make-unique <clang-tidy/checks/modernize-make-unique>`.
+- New :doc:`cert-IntegerConstant
+  <clang-tidy/checks/cert-IntegerConstant>` check.
+
+  FIXME: add release notes.
+
 
 New modules
 ^^^^^^^^^^^
