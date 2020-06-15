@@ -1,14 +1,22 @@
 // RUN: %check_clang_tidy %s cert-IntegerConstant %t
 
-// FIXME: Add something that triggers the check here.
-void f();
-// CHECK-MESSAGES: :[[@LINE-1]]:6: warning: function 'f' is insufficiently awesome [cert-IntegerConstant]
+const unsigned long mask = 0xFFFFFFFF; 
+// CHECK-MESSAGES: :[[@LINE-1]]:28: warning: integer is used in a nonportable manner [cert-IntegerConstant]
+ 
 
-// FIXME: Verify the applied fix.
-//   * Make the CHECK patterns specific enough and try to make verified lines
-//     unique to avoid incorrect matches.
-//   * Use {{}} for regular expressions.
-// CHECK-FIXES: {{^}}void awesome_f();{{$}}
 
-// FIXME: Add something that doesn't trigger the check here.
-void awesome_f2();
+const unsigned long mask2 = 0x80000000;
+
+// CHECK-MESSAGES: :[[@LINE-2]]:29: warning: integer is used in a nonportable manner [cert-IntegerConstant]
+
+
+// const unsigned long x = -1;
+// // no warnings
+
+// const unsigned long y = ~(ULONG_MAX >> 1);
+// // no warnings
+
+unsigned long flipbits(unsigned long x) {
+  return x ^ mask;
+}
+

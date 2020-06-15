@@ -17,26 +17,32 @@ namespace clang {
 namespace tidy {
 namespace cert {
 
+// static StringRef exprToStr(const Expr *E,
+//   const MatchFinder::MatchResult &Result) {
+//   return Lexer::getSourceText(
+//       CharSourceRange::getTokenRange(E->getSourceRange()),
+//       *Rescddult.SourceManager, Result.Context->getLangOpts(), 0);
+// }
+
 void IntegerconstantCheck::registerMatchers(MatchFinder *Finder) {
-    Finder->addMatcher(integerLiteral(hasAncestor(varDecl( has(isConstQualified()))) ,equals(0xFFFFFFFF)).bind("infinity"), this);
-    Finder->addMatcher(integerLiteral(hasAncestor(varDecl( has(isConstQualified()))) ,equals(0x80000000)).bind("max"), this);
+    // Finder->addMatcher(integerLiteral(hasAncestor(varDecl( has(isConstQualified())))).bind("const"), this);
+    Finder->addMatcher(integerLiteral().bind("int"), this);
 }
 
 void IntegerconstantCheck::check(const MatchFinder::MatchResult &Result) {
 
-  const auto *Matched_Int_inifinity = Result.Nodes.getNodeAs<Stmt>("infinity");
-  const auto *Matched_Int_Max = Result.Nodes.getNodeAs<Stmt>("max");
+  const auto *Matched_Int = Result.Nodes.getNodeAs<Stmt>("int");
 
-  if(Matched_Int_inifinity){
-    diag(Matched_Int_inifinity->getBeginLoc() , "hexadecimal integer constant is used in a nonportable manner ");
-    diag(Matched_Int_inifinity->getEndLoc(), "replace by -1 ", DiagnosticIDs::Note)
-        << FixItHint::CreateReplacement(Matched_Int_inifinity->getBeginLoc(), " -1 ");
-  }
+  StringRef MaskStr = Lexer::getSourceText(
+      CharSourceRange::getTokenRange(Matched_Int->getSourceRange()),
+      *Result.SourceManager, Result.Context->getLangOpts(), 0);
 
-  if(Matched_Int_Max){
-    diag(Matched_Int_Max->getBeginLoc() , "hexadecimal integer constant is used in a nonportable manner ");
-    diag(Matched_Int_Max->getEndLoc(), "replace by ~(ULONG_MAX >> 1) ", DiagnosticIDs::Note)
-        << FixItHint::CreateReplacement(Matched_Int_Max->getBeginLoc(), " ~(ULONG_MAX >> 1) ");
+  llvm::errs() << " \n\n str :  " << MaskStr << "\n\n";
+
+  if(Matched_Int){
+
+    diag(Matched_Int->getBeginLoc() , "integer is used in a nonportable manner ");
+   
   }
 
 }

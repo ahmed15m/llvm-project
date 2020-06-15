@@ -75,6 +75,8 @@ Improvements to clang-tidy
 - New :doc:`cert-IntegerConstant
   <clang-tidy/checks/cert-IntegerConstant>` check.
 
+finds constant integers that are used in a nonportable manner
+
   FIXME: add release notes.
 
 
