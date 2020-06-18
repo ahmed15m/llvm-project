@@ -8,8 +8,8 @@
 
 #include "IntegerconstantCheck.h"
 #include "clang/AST/ASTContext.h"
-#include "clang/ASTMatchers/ASTMatchFinder.h"
 #include "clang/AST/Decl.h"
+#include "clang/ASTMatchers/ASTMatchFinder.h"
 
 using namespace clang::ast_matchers;
 
@@ -17,16 +17,32 @@ namespace clang {
 namespace tidy {
 namespace cert {
 
-// static StringRef exprToStr(const Expr *E,
-//   const MatchFinder::MatchResult &Result) {
-//   return Lexer::getSourceText(
-//       CharSourceRange::getTokenRange(E->getSourceRange()),
-//       *Rescddult.SourceManager, Result.Context->getLangOpts(), 0);
-// }
+bool is_mask(std::string s) {
+  bool is_hex =
+      s.compare(0, 2, "0x") == 0 && s.size() > 2 &&
+      s.find_first_not_of("0123456789abcdefABCDEF", 2) == std::string::npos;
+  if (is_hex) {
+
+    std::string hex_number = s.substr(2);
+    unsigned int count_f = 0;
+    unsigned int count_0 = 0;
+
+    for (unsigned int i = 0; i < hex_number.size(); i++) {
+      if (hex_number[i] == 'F' || hex_number[i] == 'f')
+        count_f++;
+      if (hex_number[i] == '0')
+        count_0++;
+    }
+
+    if (count_f >= hex_number.size() / 2 || count_0 >= hex_number.size() / 2)
+      return true;
+  }
+
+  return false;
+}
 
 void IntegerconstantCheck::registerMatchers(MatchFinder *Finder) {
-    // Finder->addMatcher(integerLiteral(hasAncestor(varDecl( has(isConstQualified())))).bind("const"), this);
-    Finder->addMatcher(integerLiteral().bind("int"), this);
+  Finder->addMatcher(integerLiteral().bind("int"), this);
 }
 
 void IntegerconstantCheck::check(const MatchFinder::MatchResult &Result) {
@@ -37,14 +53,11 @@ void IntegerconstantCheck::check(const MatchFinder::MatchResult &Result) {
       CharSourceRange::getTokenRange(Matched_Int->getSourceRange()),
       *Result.SourceManager, Result.Context->getLangOpts(), 0);
 
-  llvm::errs() << " \n\n str :  " << MaskStr << "\n\n";
+  if (Matched_Int && is_mask(MaskStr.str())) {
 
-  if(Matched_Int){
-
-    diag(Matched_Int->getBeginLoc() , "integer is used in a nonportable manner ");
-   
+    diag(Matched_Int->getBeginLoc(),
+         "integer is used in a nonportable manner ");
   }
-
 }
 
 } // namespace cert
