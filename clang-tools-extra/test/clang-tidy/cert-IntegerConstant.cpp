@@ -5,16 +5,13 @@
 
 const unsigned long mask = 0xFFFFFFFF;
 // CHECK-MESSAGES: :[[@LINE-1]]:28: warning: integer is used in a nonportable
-// manner [cert-IntegerConstant]
 
 const unsigned long mask2 = 0x80000000;
 // CHECK-MESSAGES: :[[@LINE-1]]:29: warning: integer is used in a nonportable
-// manner [cert-IntegerConstant]
 
 int stuff() {
   int mask3 = 0x0f;
-  // CHECK-MESSAGES: :[[@LINE-1]]:15: warning: integer is used in a nonportable
-  // manner [cert-IntegerConstant]
+  // CaHECK-MESSAGES: :[[@LINE-1]]:15: warning: integer is used in a nonportable
   int value = 0x55;
   return mask3;
 }

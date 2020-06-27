@@ -18,24 +18,39 @@ namespace tidy {
 namespace cert {
 
 bool is_mask(std::string s) {
-  bool is_hex =
-      s.compare(0, 2, "0x") == 0 && s.size() > 2 &&
-      s.find_first_not_of("0123456789abcdefABCDEF", 2) == std::string::npos;
+  bool is_hex = s.compare(0, 2, "0x") == 0 && s.size() > 2;
   if (is_hex) {
 
-    std::string hex_number = s.substr(2);
-    unsigned int count_f = 0;
-    unsigned int count_0 = 0;
+    std::string hex_number =
+        s.substr(2, s.find_first_not_of("0x123456789abcdefABCDEF") - 2);
 
-    for (unsigned int i = 0; i < hex_number.size(); i++) {
+    if (hex_number.size() != 4 && hex_number.size() != 8 &&
+        hex_number.size() != 16)
+      return false;
+
+    unsigned int count = 0;
+
+    for (unsigned int i = hex_number.size() - 1; i > 0; i--) {
       if (hex_number[i] == 'F' || hex_number[i] == 'f')
-        count_f++;
-      if (hex_number[i] == '0')
-        count_0++;
+        count++;
+      else
+        break;
+
+      if (count >= 2)
+        return true;
     }
 
-    if (count_f >= hex_number.size() / 2 || count_0 >= hex_number.size() / 2)
-      return true;
+    count = 0;
+
+    for (unsigned int i = hex_number.size() - 1; i > 0; i--) {
+      if (hex_number[i] == '0')
+        count++;
+      else
+        break;
+
+      if (count >= 2)
+        return true;
+    }
   }
 
   return false;
