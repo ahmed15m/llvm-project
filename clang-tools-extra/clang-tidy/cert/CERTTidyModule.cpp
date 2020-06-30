@@ -25,7 +25,6 @@
 #include "DefaultOperatorNewAlignmentCheck.h"
 #include "DontModifyStdNamespaceCheck.h"
 #include "FloatLoopCounter.h"
-#include "IntegerconstantCheck.h"
 #include "LimitedRandomnessCheck.h"
 #include "MutatingCopyCheck.h"
 #include "NonTrivialTypesLibcMemoryCallsCheck.h"
@@ -49,8 +48,6 @@ public:
     CheckFactories.registerCheck<bugprone::SpuriouslyWakeUpFunctionsCheck>(
         "cert-con54-cpp");
     // DCL
-    CheckFactories.registerCheck<IntegerconstantCheck>(
-        "cert-IntegerConstant");
     CheckFactories.registerCheck<PostfixOperatorCheck>(
         "cert-dcl21-cpp");
     CheckFactories.registerCheck<VariadicFunctionDefCheck>("cert-dcl50-cpp");

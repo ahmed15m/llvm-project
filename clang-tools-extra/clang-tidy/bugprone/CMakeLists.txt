@@ -21,6 +21,7 @@ add_clang_library(clangTidyBugproneModule
   IncorrectRoundingsCheck.cpp
   InfiniteLoopCheck.cpp
   IntegerDivisionCheck.cpp
+  IntegerconstantCheck.cpp
   LambdaFunctionNameCheck.cpp
   MacroParenthesesCheck.cpp
   MacroRepeatedSideEffectsCheck.cpp

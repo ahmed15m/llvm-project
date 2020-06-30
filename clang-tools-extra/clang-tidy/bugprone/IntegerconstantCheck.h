@@ -6,19 +6,19 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_CERT_INTEGERCONSTANTCHECK_H
-#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_CERT_INTEGERCONSTANTCHECK_H
+#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_INTEGERCONSTANTCHECK_H
+#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_INTEGERCONSTANTCHECK_H
 
 #include "../ClangTidyCheck.h"
 
 namespace clang {
 namespace tidy {
-namespace cert {
+namespace bugprone {
 
 /// FIXME: Write a short description.
 ///
 /// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/cert-IntegerConstant.html
+/// http://clang.llvm.org/extra/clang-tidy/checks/bugprone-IntegerConstant.html
 class IntegerconstantCheck : public ClangTidyCheck {
 public:
   IntegerconstantCheck(StringRef Name, ClangTidyContext *Context)
@@ -27,8 +27,8 @@ public:
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 
-} // namespace cert
+} // namespace bugprone
 } // namespace tidy
 } // namespace clang
 
-#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_CERT_INTEGERCONSTANTCHECK_H
+#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_INTEGERCONSTANTCHECK_H

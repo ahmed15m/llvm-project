@@ -15,7 +15,7 @@ using namespace clang::ast_matchers;
 
 namespace clang {
 namespace tidy {
-namespace cert {
+namespace bugprone {
 
 bool is_mask(std::string s) {
   bool is_hex = s.compare(0, 2, "0x") == 0 && s.size() > 2;
@@ -75,6 +75,6 @@ void IntegerconstantCheck::check(const MatchFinder::MatchResult &Result) {
   }
 }
 
-} // namespace cert
+} // namespace bugprone
 } // namespace tidy
 } // namespace clang

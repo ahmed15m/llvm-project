@@ -1,7 +1,7 @@
-.. title:: clang-tidy - cert-IntegerConstant
+.. title:: clang-tidy - bugprone-IntegerConstant
 
-cert-IntegerConstant
-====================
+bugprone-IntegerConstant
+========================
 
 this check finds and fix Constant Integers that are used in a nonportable manner
 

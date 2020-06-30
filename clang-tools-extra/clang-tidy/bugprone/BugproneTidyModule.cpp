@@ -26,6 +26,7 @@
 #include "IncorrectRoundingsCheck.h"
 #include "InfiniteLoopCheck.h"
 #include "IntegerDivisionCheck.h"
+#include "IntegerconstantCheck.h"
 #include "LambdaFunctionNameCheck.h"
 #include "MacroParenthesesCheck.h"
 #include "MacroRepeatedSideEffectsCheck.h"
@@ -104,6 +105,8 @@ public:
         "bugprone-infinite-loop");
     CheckFactories.registerCheck<IntegerDivisionCheck>(
         "bugprone-integer-division");
+    CheckFactories.registerCheck<IntegerconstantCheck>(
+        "bugprone-IntegerConstant");
     CheckFactories.registerCheck<LambdaFunctionNameCheck>(
         "bugprone-lambda-function-name");
     CheckFactories.registerCheck<MacroParenthesesCheck>(

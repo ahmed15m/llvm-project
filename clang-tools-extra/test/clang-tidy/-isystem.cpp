@@ -1,4 +1,4 @@
-// RUN: %check_clang_tidy %s cert-IntegerConstant %t
+// RUN: %check_clang_tidy %s bugprone-IntegerConstant %t
 
 // FIXME: Add something that triggers the check here.
 void f();

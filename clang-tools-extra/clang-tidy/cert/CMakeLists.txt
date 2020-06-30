@@ -9,7 +9,6 @@ add_clang_library(clangTidyCERTModule
   DefaultOperatorNewAlignmentCheck.cpp
   DontModifyStdNamespaceCheck.cpp
   FloatLoopCounter.cpp
-  IntegerconstantCheck.cpp
   LimitedRandomnessCheck.cpp
   MutatingCopyCheck.cpp
   NonTrivialTypesLibcMemoryCallsCheck.cpp
