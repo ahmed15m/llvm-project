@@ -35,10 +35,9 @@ bool is_mask(std::string s) {
         count++;
       else
         break;
-
-      if (count >= 2)
-        return true;
     }
+    if (count >= 2)
+      return true;
 
     count = 0;
 
@@ -47,10 +46,9 @@ bool is_mask(std::string s) {
         count++;
       else
         break;
-
-      if (count >= 2)
-        return true;
     }
+    if (count >= 2)
+      return true;
   }
 
   return false;
