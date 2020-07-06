@@ -4,14 +4,17 @@
 #include <stdio.h>
 
 const unsigned long mask = 0xFFFFFFFF;
-// CHECK-MESSAGES: :[[@LINE-1]]:28: warning: integer is used in a nonportable
+// CHECK-MESSAGES: :[[@LINE-1]]:28: warning: integer is being used in a non-portable manner 
+
+const unsigned long maskk = 0xffffffffUL;
+// CHECK-MESSAGES: :[[@LINE-1]]:29: warning: integer is being used in a non-portable manner
 
 const unsigned long mask2 = 0x80000000;
-// CHECK-MESSAGES: :[[@LINE-1]]:29: warning: integer is used in a nonportable
+// CHECK-MESSAGES: :[[@LINE-1]]:29: warning: integer is being used in a non-portable manner 
 
 int stuff() {
   int mask3 = 0x0f;
-  // CaHECK-MESSAGES: :[[@LINE-1]]:15: warning: integer is used in a nonportable
+  // CaHECK-MESSAGES: :[[@LINE-1]]:15: warning: integer is being used in a non-portable manner
   int value = 0x55;
   return mask3;
 }
@@ -20,4 +23,7 @@ const unsigned long x = -1;
 // no warnings
 
 const unsigned long y = ~(ULONG_MAX >> 1);
+// no warnings
+
+const unsigned long z = 0x11111111;
 // no warnings

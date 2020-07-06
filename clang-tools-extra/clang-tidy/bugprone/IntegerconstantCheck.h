@@ -15,7 +15,7 @@ namespace clang {
 namespace tidy {
 namespace bugprone {
 
-/// FIXME: Write a short description.
+/// Finds masks that are being used in a nonportable manner
 ///
 /// For the user-facing documentation see:
 /// http://clang.llvm.org/extra/clang-tidy/checks/bugprone-IntegerConstant.html
