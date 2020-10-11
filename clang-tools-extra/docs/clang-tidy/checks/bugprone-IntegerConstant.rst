@@ -3,7 +3,7 @@
 bugprone-IntegerConstant
 ========================
 
-Finds masks that are being used in a nonportable manner.
+Finds masks that are being used in a non-portable manner.
 
 .. code-block:
 

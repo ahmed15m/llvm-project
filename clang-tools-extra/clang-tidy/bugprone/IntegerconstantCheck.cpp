@@ -17,32 +17,34 @@ namespace clang {
 namespace tidy {
 namespace bugprone {
 
-bool is_mask(StringRef hex_number) {
+/// The mask is problematic if:
+/// - The highest bit is set and everything else are zeroes.
+/// - (didn't understand the rest of the cases yet!)
+bool isProblematicMask(StringRef HexNumber) {
 
-  if (hex_number.size() != 4 && hex_number.size() != 8 &&
-      hex_number.size() != 16)
-    return false;
+  // if (HexNumber.size() != 4 && HexNumber.size() != 8 &&
+  //     HexNumber.size() != 16)
+  //   return false;
 
-  unsigned int count = 0;
+  unsigned int FCount = 0;
+  unsigned int ZeroCount = 0;
 
-  for (unsigned int i = hex_number.size() - 1; i > 0; i--) {
-    if (hex_number[i] == 'f')
-      count++;
+  for (unsigned int i = HexNumber.size() - 1; i > 0; i--) {
+    if (HexNumber[i] == 'f')
+      FCount++;
     else
       break;
   }
-  if (count >= 2)
+  if (FCount >= 2)
     return true;
 
-  count = 0;
-
-  for (unsigned int i = hex_number.size() - 1; i > 0; i--) {
-    if (hex_number[i] == '0')
-      count++;
+  for (unsigned int i = HexNumber.size() - 1; i > 0; i--) {
+    if (HexNumber[i] == '0')
+      ZeroCount++;
     else
       break;
   }
-  if (count >= 2)
+  if (ZeroCount >= 2)
     return true;
 
   return false;
@@ -54,12 +56,12 @@ void IntegerconstantCheck::registerMatchers(MatchFinder *Finder) {
 
 void IntegerconstantCheck::check(const MatchFinder::MatchResult &Result) {
 
-  const auto *Matched_Int = Result.Nodes.getNodeAs<IntegerLiteral>("int");
+  const auto *MatchedInt = Result.Nodes.getNodeAs<IntegerLiteral>("int");
 
-  if (Matched_Int) {
+  if (MatchedInt) {
 
     StringRef MaskStr = Lexer::getSourceText(
-        CharSourceRange::getTokenRange(Matched_Int->getSourceRange()),
+        CharSourceRange::getTokenRange(MatchedInt->getSourceRange()),
         *Result.SourceManager, Result.Context->getLangOpts(), 0);
 
     MaskStr = StringRef(MaskStr.lower());
@@ -68,10 +70,13 @@ void IntegerconstantCheck::check(const MatchFinder::MatchResult &Result) {
 
     MaskStr = MaskStr.take_while(llvm::isHexDigit);
 
-    if (!is_mask(MaskStr))
+    if (MaskStr.empty())
       return;
 
-    diag(Matched_Int->getBeginLoc(),
+    if (!isProblematicMask(MaskStr))
+      return;
+
+    diag(MatchedInt->getBeginLoc(),
          "integer is being used in a non-portable manner ");
   }
 }

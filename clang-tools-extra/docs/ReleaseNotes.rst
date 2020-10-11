@@ -72,7 +72,7 @@ Improvements to clang-tidy
 - New :doc:`cert-IntegerConstant
   <clang-tidy/checks/cert-IntegerConstant>` check.
 
-  Finds masks that are being used in a nonportable manner.
+  Finds masks that are being used in a non-portable manner.
 
 
 
