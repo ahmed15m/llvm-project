@@ -18,45 +18,31 @@ namespace tidy {
 namespace bugprone {
 
 /// The mask is problematic if:
-/// - The highest bit is set and everything else are zeroes.
-/// - (didn't understand the rest of the cases yet!)
+/// - The highest bit is set and everything else are zeroes, for example: `0x80000000`.
+/// - All the bits are set to one, for example: `0xFFFFFFFF`.
 bool isProblematicMask(StringRef HexNumber) {
 
-  // if (HexNumber.size() != 4 && HexNumber.size() != 8 &&
-  //     HexNumber.size() != 16)
-  //   return false;
-
-  unsigned int FCount = 0;
-  unsigned int ZeroCount = 0;
-
-  for (unsigned int i = HexNumber.size() - 1; i > 0; i--) {
-    if (HexNumber[i] == 'f')
-      FCount++;
-    else
-      break;
+ // Check whether only the highest bit is set.
+  if (HexNumber[0] == '8' && HexNumber[1] == '0') {
+    // Consume the first non-zero.
+    HexNumber = HexNumber.drop_front();
+    // Consume all the left zeroes.
+    HexNumber = HexNumber.drop_while([](char C) { return C == '0'; });
+    return HexNumber.empty();
   }
-  if (FCount >= 2)
-    return true;
 
-  for (unsigned int i = HexNumber.size() - 1; i > 0; i--) {
-    if (HexNumber[i] == '0')
-      ZeroCount++;
-    else
-      break;
-  }
-  if (ZeroCount >= 2)
-    return true;
-
-  return false;
+  // Check whether all the bits are set to one by consuming all the 'F's.
+  HexNumber = HexNumber.drop_while([](char C) { return C == 'F' || C == 'f'; });
+  return HexNumber.empty();
 }
 
 void IntegerconstantCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(integerLiteral().bind("int"), this);
+  Finder->addMatcher(integerLiteral().bind("integer"), this);
 }
 
 void IntegerconstantCheck::check(const MatchFinder::MatchResult &Result) {
 
-  const auto *MatchedInt = Result.Nodes.getNodeAs<IntegerLiteral>("int");
+  const auto *MatchedInt = Result.Nodes.getNodeAs<IntegerLiteral>("integer");
 
   if (MatchedInt) {
 
@@ -69,9 +55,6 @@ void IntegerconstantCheck::check(const MatchFinder::MatchResult &Result) {
       return;
 
     MaskStr = MaskStr.take_while(llvm::isHexDigit);
-
-    if (MaskStr.empty())
-      return;
 
     if (!isProblematicMask(MaskStr))
       return;
