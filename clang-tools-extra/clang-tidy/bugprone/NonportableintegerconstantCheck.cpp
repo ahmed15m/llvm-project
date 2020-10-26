@@ -1,4 +1,4 @@
-//===--- IntegerconstantCheck.cpp - clang-tidy ----------------------------===//
+//===--- NonportableintegerconstantCheck.cpp - clang-tidy ----------------------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "IntegerconstantCheck.h"
+#include "NonportableintegerconstantCheck.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/AST/Decl.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
@@ -36,11 +36,11 @@ bool isProblematicMask(StringRef HexNumber) {
   return HexNumber.empty();
 }
 
-void IntegerconstantCheck::registerMatchers(MatchFinder *Finder) {
+void NonportableintegerconstantCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(integerLiteral().bind("integer"), this);
 }
 
-void IntegerconstantCheck::check(const MatchFinder::MatchResult &Result) {
+void NonportableintegerconstantCheck::check(const MatchFinder::MatchResult &Result) {
 
   const auto *MatchedInt = Result.Nodes.getNodeAs<IntegerLiteral>("integer");
 

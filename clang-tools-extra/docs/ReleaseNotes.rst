@@ -69,11 +69,10 @@ Improvements to clang-tidy
 
   <clang-tidy/checks/cppcoreguidelines-init-variables>` and
   :doc:`modernize-make-unique <clang-tidy/checks/modernize-make-unique>`.
-- New :doc:`cert-IntegerConstant
-  <clang-tidy/checks/cert-IntegerConstant>` check.
+- New :doc:`bugprone-NonPortableIntegerConstant
+  <clang-tidy/checks/bugprone-NonPortableIntegerConstant>` check.
 
   Finds masks that are being used in a non-portable manner.
-
 
 
 New modules

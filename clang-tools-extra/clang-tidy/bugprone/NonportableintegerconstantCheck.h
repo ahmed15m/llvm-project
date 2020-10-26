@@ -1,4 +1,4 @@
-//===--- IntegerconstantCheck.h - clang-tidy --------------------*- C++ -*-===//
+//===--- NonportableintegerconstantCheck.h - clang-tidy ---------*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_INTEGERCONSTANTCHECK_H
-#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_INTEGERCONSTANTCHECK_H
+#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_NONPORTABLEINTEGERCONSTANTCHECK_H
+#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_NONPORTABLEINTEGERCONSTANTCHECK_H
 
 #include "../ClangTidyCheck.h"
 
@@ -18,10 +18,10 @@ namespace bugprone {
 /// Finds masks that are being used in a nonportable manner
 ///
 /// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/bugprone-IntegerConstant.html
-class IntegerconstantCheck : public ClangTidyCheck {
+/// http://clang.llvm.org/extra/clang-tidy/checks/bugprone-NonPortableIntegerConstant.html
+class NonportableintegerconstantCheck : public ClangTidyCheck {
 public:
-  IntegerconstantCheck(StringRef Name, ClangTidyContext *Context)
+  NonportableintegerconstantCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
@@ -31,4 +31,4 @@ public:
 } // namespace tidy
 } // namespace clang
 
-#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_INTEGERCONSTANTCHECK_H
+#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_NONPORTABLEINTEGERCONSTANTCHECK_H
