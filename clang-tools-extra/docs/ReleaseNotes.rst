@@ -67,13 +67,12 @@ The improvements are...
 Improvements to clang-tidy
 --------------------------
 
+- Checks that allow configuring names of headers to include now support wrapping
+  the include in angle brackets to create a system include. For example,
+  :doc:`cppcoreguidelines-init-variables
   <clang-tidy/checks/cppcoreguidelines-init-variables>` and
   :doc:`modernize-make-unique <clang-tidy/checks/modernize-make-unique>`.
-- New :doc:`bugprone-NonPortableIntegerConstant
-  <clang-tidy/checks/bugprone-NonPortableIntegerConstant>` check.
-
-  Finds masks that are being used in a non-portable manner.
-
+  
 
 New modules
 ^^^^^^^^^^^
@@ -112,6 +111,11 @@ New checks
   <clang-tidy/checks/readability-function-cognitive-complexity>` check.
 
   Flags functions with Cognitive Complexity metric exceeding the configured limit.
+ 
+- New :doc:`bugprone-NonPortableIntegerConstant	
+  <clang-tidy/checks/bugprone-NonPortableIntegerConstant>` check.	
+  
+  Finds masks that are being used in a non-portable manner.	
 
 Changes in existing checks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
