@@ -10,6 +10,7 @@
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
 #include "../bugprone/BadSignalToKillThreadCheck.h"
+#include "../bugprone/NonPortableIntegerConstant.h"
 #include "../bugprone/ReservedIdentifierCheck.h"
 #include "../bugprone/SignedCharMisuseCheck.h"
 #include "../bugprone/SpuriouslyWakeUpFunctionsCheck.h"
@@ -102,6 +103,9 @@ public:
     CheckFactories.registerCheck<misc::NonCopyableObjectsCheck>("cert-fio38-c");
     // ERR
     CheckFactories.registerCheck<StrToNumCheck>("cert-err34-c");
+    // INT
+    CheckFactories.registerCheck<bugprone::NonPortableIntegerConstant>(
+        "cert-int17-c");
     // MSC
     CheckFactories.registerCheck<LimitedRandomnessCheck>("cert-msc30-c");
     CheckFactories.registerCheck<ProperlySeededRandomGeneratorCheck>(

@@ -111,6 +111,7 @@ Clang-Tidy Checks
    `cert-err58-cpp <cert-err58-cpp.html>`_,
    `cert-err60-cpp <cert-err60-cpp.html>`_,
    `cert-flp30-c <cert-flp30-c.html>`_,
+   `cert-int17-c <cert-int17-c.html>`_,
    `cert-mem57-cpp <cert-mem57-cpp.html>`_,
    `cert-msc50-cpp <cert-msc50-cpp.html>`_,
    `cert-msc51-cpp <cert-msc51-cpp.html>`_,
