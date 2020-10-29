@@ -1,6 +1,6 @@
-.. title:: clang-tidy - bugprone-NonPortableIntegerConstant
+.. title:: clang-tidy - bugprone-non-portable-integer-constant
 
-bugprone-NonPortableIntegerConstant
+bugprone-non-portable-integer-constant
 ===================================
 
 Finds masks that are being used in a non-portable manner.

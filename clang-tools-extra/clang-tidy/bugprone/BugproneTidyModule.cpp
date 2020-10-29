@@ -122,7 +122,7 @@ public:
     CheckFactories.registerCheck<MultipleStatementMacroCheck>(
         "bugprone-multiple-statement-macro");
     CheckFactories.registerCheck<NonportableintegerconstantCheck>(
-        "bugprone-NonPortableIntegerConstant");
+        "bugprone-non-portable-integer-constant");
     CheckFactories.registerCheck<RedundantBranchConditionCheck>(
         "bugprone-redundant-branch-condition");
     CheckFactories.registerCheck<cppcoreguidelines::NarrowingConversionsCheck>(

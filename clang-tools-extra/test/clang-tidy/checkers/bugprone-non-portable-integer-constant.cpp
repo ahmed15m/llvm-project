@@ -1,4 +1,5 @@
-// RUN: %check_clang_tidy %s bugprone-NonPortableIntegerConstant %t
+// RUN: %check_clang_tidy %s bugprone-non-portable-integer-constant %t
+
 // #define ULONG_MAX 0xFFFFFFFFUL
 #include <limits.h>
 #include <stdio.h>

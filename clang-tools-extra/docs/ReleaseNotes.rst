@@ -112,8 +112,8 @@ New checks
 
   Flags functions with Cognitive Complexity metric exceeding the configured limit.
  
-- New :doc:`bugprone-NonPortableIntegerConstant	
-  <clang-tidy/checks/bugprone-NonPortableIntegerConstant>` check.	
+- New :doc:`bugprone-non-portable-integer-constant	
+  <clang-tidy/checks/bugprone-non-portable-integer-constant>` check.	
   
   Finds masks that are being used in a non-portable manner.	
 

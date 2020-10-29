@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_NONPORTABLEINTEGERCONSTANTCHECK_H
-#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_NONPORTABLEINTEGERCONSTANTCHECK_H
+#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_NON_PORTABLE_INTEGER_CONSTANT_H
+#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_NON_PORTABLE_INTEGER_CONSTANT_H
 
 #include "../ClangTidyCheck.h"
 
@@ -18,7 +18,7 @@ namespace bugprone {
 /// Finds masks that are being used in a nonportable manner
 ///
 /// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/bugprone-NonPortableIntegerConstant.html
+/// http://clang.llvm.org/extra/clang-tidy/checks/bugprone-non-portable-integer-constant.html
 class NonportableintegerconstantCheck : public ClangTidyCheck {
 public:
   NonportableintegerconstantCheck(StringRef Name, ClangTidyContext *Context)
@@ -31,4 +31,4 @@ public:
 } // namespace tidy
 } // namespace clang
 
-#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_NONPORTABLEINTEGERCONSTANTCHECK_H
+#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BUGPRONE_NON_PORTABLE_INTEGER_CONSTANT_H
