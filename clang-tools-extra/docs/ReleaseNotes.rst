@@ -73,7 +73,6 @@ Improvements to clang-tidy
   <clang-tidy/checks/cppcoreguidelines-init-variables>` and
   :doc:`modernize-make-unique <clang-tidy/checks/modernize-make-unique>`.
   
-
 New modules
 ^^^^^^^^^^^
 
