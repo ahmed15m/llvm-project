@@ -119,10 +119,10 @@ New checks
 New check aliases
 ^^^^^^^^^^^^^^^^^
 
-- New alias :doc:`cert-con37-c
-  <clang-tidy/checks/cert-con37-c>` to
-  :doc:`bugprone-signal-in-multithreaded-program
-  <clang-tidy/checks/bugprone-signal-in-multithreaded-program>` was added.
+- New alias :doc:`cert-int17-c
+  <clang-tidy/checks/cert-int17-c>` to
+  :doc:`bugprone-non-portable-integer-constant
+  <clang-tidy/checks/bugprone-non-portable-integer-constant>` was added.
 
 Changes in existing checks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
