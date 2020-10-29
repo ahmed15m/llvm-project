@@ -116,6 +116,14 @@ New checks
   
   Finds masks that are being used in a non-portable manner.	
 
+New check aliases
+^^^^^^^^^^^^^^^^^
+
+- New alias :doc:`cert-con37-c
+  <clang-tidy/checks/cert-con37-c>` to
+  :doc:`bugprone-signal-in-multithreaded-program
+  <clang-tidy/checks/bugprone-signal-in-multithreaded-program>` was added.
+
 Changes in existing checks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
