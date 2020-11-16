@@ -10,7 +10,6 @@
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
 #include "../bugprone/BadSignalToKillThreadCheck.h"
-#include "../bugprone/NonPortableIntegerConstant.h"
 #include "../bugprone/ReservedIdentifierCheck.h"
 #include "../bugprone/SignedCharMisuseCheck.h"
 #include "../bugprone/SpuriouslyWakeUpFunctionsCheck.h"
@@ -21,6 +20,7 @@
 #include "../misc/StaticAssertCheck.h"
 #include "../misc/ThrowByValueCatchByReferenceCheck.h"
 #include "../performance/MoveConstructorInitCheck.h"
+#include "../portability/NonPortableIntegerConstantCheck.h"
 #include "../readability/UppercaseLiteralSuffixCheck.h"
 #include "CommandProcessorCheck.h"
 #include "DefaultOperatorNewAlignmentCheck.h"
@@ -104,7 +104,7 @@ public:
     // ERR
     CheckFactories.registerCheck<StrToNumCheck>("cert-err34-c");
     // INT
-    CheckFactories.registerCheck<bugprone::NonPortableIntegerConstant>(
+    CheckFactories.registerCheck<portability::NonPortableIntegerConstantCheck>(
         "cert-int17-c");
     // MSC
     CheckFactories.registerCheck<LimitedRandomnessCheck>("cert-msc30-c");

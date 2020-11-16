@@ -72,7 +72,6 @@ Clang-Tidy Checks
    `bugprone-move-forwarding-reference <bugprone-move-forwarding-reference.html>`_, "Yes"
    `bugprone-multiple-statement-macro <bugprone-multiple-statement-macro.html>`_,
    `bugprone-no-escape <bugprone-no-escape.html>`_,
-   `bugprone-non-portable-integer-constant <bugprone-non-portable-integer-constant.html>`_,
    `bugprone-not-null-terminated-result <bugprone-not-null-terminated-result.html>`_, "Yes"
    `bugprone-parent-virtual-call <bugprone-parent-virtual-call.html>`_, "Yes"
    `bugprone-posix-return <bugprone-posix-return.html>`_, "Yes"
@@ -268,6 +267,7 @@ Clang-Tidy Checks
    `performance-type-promotion-in-math-fn <performance-type-promotion-in-math-fn.html>`_, "Yes"
    `performance-unnecessary-copy-initialization <performance-unnecessary-copy-initialization.html>`_,
    `performance-unnecessary-value-param <performance-unnecessary-value-param.html>`_, "Yes"
+   `portability-non-portable-integer-constant <bugprone-non-portable-integer-constant.html>`_,
    `portability-restrict-system-includes <portability-restrict-system-includes.html>`_, "Yes"
    `portability-simd-intrinsics <portability-simd-intrinsics.html>`_,
    `readability-avoid-const-params-in-decls <readability-avoid-const-params-in-decls.html>`_,

@@ -72,7 +72,7 @@ Improvements to clang-tidy
   :doc:`cppcoreguidelines-init-variables
   <clang-tidy/checks/cppcoreguidelines-init-variables>` and
   :doc:`modernize-make-unique <clang-tidy/checks/modernize-make-unique>`.
-  
+
 New modules
 ^^^^^^^^^^^
 
@@ -106,23 +106,23 @@ New checks
   Finds condition variables in nested ``if`` statements that were also checked
   in the outer ``if`` statement and were not changed.
 
+- New :doc:`portability-non-portable-integer-constant	
+  <clang-tidy/checks/portability-non-portable-integer-constant>` check.	
+  
+  Finds masks that are being used in a non-portable manner.	
+  
 - New :doc:`readability-function-cognitive-complexity
   <clang-tidy/checks/readability-function-cognitive-complexity>` check.
 
   Flags functions with Cognitive Complexity metric exceeding the configured limit.
  
-- New :doc:`bugprone-non-portable-integer-constant	
-  <clang-tidy/checks/bugprone-non-portable-integer-constant>` check.	
-  
-  Finds masks that are being used in a non-portable manner.	
-
 New check aliases
 ^^^^^^^^^^^^^^^^^
 
 - New alias :doc:`cert-int17-c
   <clang-tidy/checks/cert-int17-c>` to
-  :doc:`bugprone-non-portable-integer-constant
-  <clang-tidy/checks/bugprone-non-portable-integer-constant>` was added.
+  :doc:`portability-non-portable-integer-constant
+  <clang-tidy/checks/portability-non-portable-integer-constant>` was added.
 
 Changes in existing checks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

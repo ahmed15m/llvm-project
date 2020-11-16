@@ -31,7 +31,6 @@ add_clang_library(clangTidyBugproneModule
   MultipleStatementMacroCheck.cpp
   NoEscapeCheck.cpp
   NotNullTerminatedResultCheck.cpp
-  NonportableintegerconstantCheck.cpp
   ParentVirtualCallCheck.cpp
   PosixReturnCheck.cpp
   RedundantBranchConditionCheck.cpp
