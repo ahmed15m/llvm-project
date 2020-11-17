@@ -5,13 +5,13 @@
 #include <stdio.h>
 
 const unsigned long mask = 0xFFFFFFFF;
-// CHECK-MESSAGES: :[[@LINE-1]]:28: warning: integer is being used in a non-portable manner 
+// CHECK-MESSAGES: :[[@LINE-1]]:28: warning: integer is being used in a non-portable manner
 
 const unsigned long mask1 = 0xffffffffUL;
 // CHECK-MESSAGES: :[[@LINE-1]]:29: warning: integer is being used in a non-portable manner
 
 const unsigned long mask2 = 0x80000000;
-// CHECK-MESSAGES: :[[@LINE-1]]:29: warning: integer is being used in a non-portable manner 
+// CHECK-MESSAGES: :[[@LINE-1]]:29: warning: integer is being used in a non-portable manner
 
 int stuff() {
   int mask3 = 0xff;

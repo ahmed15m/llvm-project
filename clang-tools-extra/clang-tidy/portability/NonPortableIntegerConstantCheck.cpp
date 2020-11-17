@@ -58,7 +58,7 @@ void NonPortableIntegerConstantCheck::check(const MatchFinder::MatchResult &Resu
       return;
 
     diag(MatchedInt->getBeginLoc(),
-         "integer is being used in a non-portable manner ");
+         "integer is being used in a non-portable manner");
   }
 }
 
