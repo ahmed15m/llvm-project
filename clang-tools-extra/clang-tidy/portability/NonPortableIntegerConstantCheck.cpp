@@ -18,25 +18,32 @@ namespace clang {
 namespace tidy {
 namespace portability {
 
-
 void NonPortableIntegerConstantCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(integerLiteral().bind("integer"), this);
 }
 
-void NonPortableIntegerConstantCheck::check(const MatchFinder::MatchResult &Result) {
+void NonPortableIntegerConstantCheck::check(
+    const MatchFinder::MatchResult &Result) {
   const auto *MatchedInt = Result.Nodes.getNodeAs<IntegerLiteral>("integer");
 
-  StringRef LiteralStr = Lexer::getSourceText(CharSourceRange::getTokenRange(MatchedInt->getSourceRange()),
-  *Result.SourceManager, Result.Context->getLangOpts(), nullptr).lower();
+  StringRef LiteralStr =
+      Lexer::getSourceText(
+          CharSourceRange::getTokenRange(MatchedInt->getSourceRange()),
+          *Result.SourceManager, Result.Context->getLangOpts(), nullptr)
+          .lower();
 
   llvm::APInt LiteralValue = MatchedInt->getValue();
 
   StringRef StrippedLiteral{LiteralStr};
-  StrippedLiteral.consume_front("0b");
-  StrippedLiteral.consume_front("0x");
+  StrippedLiteral.consume_front("0");
+  StrippedLiteral.consume_front("b");
+  StrippedLiteral.consume_front("x");
   StrippedLiteral = StrippedLiteral.take_while(llvm::isHexDigit);
 
-  llvm::errs()<< "\n str: " << LiteralStr << "\n APINT: " << LiteralValue << "  stripped:" << StrippedLiteral <<"  size:"<< LiteralValue.isAllOnesValue() << "\n\n";
+  llvm::errs() << "\n str: " << LiteralStr << "\n APINT: " << LiteralValue
+               << "  stripped:" << StrippedLiteral
+               << "  isAllOnesValue:" << LiteralValue.isAllOnesValue()
+               << "  isMask:" << LiteralValue.isMask() << "\n\n";
 
   if (StrippedLiteral.empty())
     return;
@@ -44,16 +51,14 @@ void NonPortableIntegerConstantCheck::check(const MatchFinder::MatchResult &Resu
   const bool RepresentsZero = LiteralValue.isNullValue();
   const bool HasLeadingZeroes = StrippedLiteral[0] == '0';
   const bool AllBitsAreSet = LiteralValue.isAllOnesValue();
-  const bool IntegralPattern = (HasLeadingZeroes && !RepresentsZero) || AllBitsAreSet;
+  const bool IntegralPattern =
+      (HasLeadingZeroes && !RepresentsZero) || AllBitsAreSet;
 
   if (IntegralPattern)
     diag(MatchedInt->getBeginLoc(),
-        "integer is being used in a non-portable manner");
-
-
+         "integer is being used in a non-portable manner");
 }
 
 } // namespace portability
 } // namespace tidy
 } // namespace clang
-
