@@ -22,11 +22,12 @@ void NonPortableIntegerConstantCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(integerLiteral().bind("integer"), this);
 }
 
+
 void NonPortableIntegerConstantCheck::check(
     const MatchFinder::MatchResult &Result) {
   const auto *MatchedInt = Result.Nodes.getNodeAs<IntegerLiteral>("integer");
 
-  StringRef LiteralStr =
+  std::string LiteralStr =
       Lexer::getSourceText(
           CharSourceRange::getTokenRange(MatchedInt->getSourceRange()),
           *Result.SourceManager, Result.Context->getLangOpts(), nullptr)
@@ -34,25 +35,59 @@ void NonPortableIntegerConstantCheck::check(
 
   llvm::APInt LiteralValue = MatchedInt->getValue();
 
-  StringRef StrippedLiteral{LiteralStr};
-  StrippedLiteral.consume_front("0");
-  StrippedLiteral.consume_front("b");
-  StrippedLiteral.consume_front("x");
-  StrippedLiteral = StrippedLiteral.take_while(llvm::isHexDigit);
 
-  llvm::errs() << "\n str: " << LiteralStr << "\n APINT: " << LiteralValue
-               << "  stripped:" << StrippedLiteral
-               << "  isAllOnesValue:" << LiteralValue.isAllOnesValue()
-               << "  isMask:" << LiteralValue.isMask() << "\n\n";
+
+  llvm::erase_value(LiteralStr, '\''); // Skip digit separators.
+  StringRef StrippedLiteral{LiteralStr};
+  bool IsFullPattern = false;
+
+  QualType IntegerLiteralType = MatchedInt->getType();
+  unsigned int IntegerLiteralTypeSize = Result.Context->getTypeSize( IntegerLiteralType );
+
+  if(StrippedLiteral.consume_front("0b"))
+  {
+    StrippedLiteral = StrippedLiteral.take_while(llvm::isHexDigit);
+    if(IntegerLiteralTypeSize == StrippedLiteral.size())
+        IsFullPattern = true;
+    
+  }
+  else if(StrippedLiteral.consume_front("0x"))
+  {
+    StrippedLiteral = StrippedLiteral.take_while(llvm::isHexDigit);
+    if(IntegerLiteralTypeSize == StrippedLiteral.size()*4)
+        IsFullPattern = true;
+  }
+  else if(StrippedLiteral.consume_front("0")) // not yet done
+  {
+    StrippedLiteral = StrippedLiteral.take_while(llvm::isHexDigit);
+    // if(IntegerLiteralTypeSize == StrippedLiteral.size()*4)
+        // IsFullPattern = true;
+  }
+
+  // for testing purpose
+  llvm::errs() << "--------------------------------" << "\n\n"
+              << "\n LiteralStr: " << LiteralStr << "\n APINT: " << LiteralValue
+               << "  StrippedLiteral:" << StrippedLiteral
+               << "  str size:" << StrippedLiteral.size() << "\n\n"
+               << "  Type: " << IntegerLiteralType.getAsString() << "\n\n"
+               << "  Size: " << IntegerLiteralTypeSize << "\n\n"
+               << "  Fullpattern: " << IsFullPattern << "\n\n"
+               << "  max: " << llvm::APInt::getMaxValue(IntegerLiteralTypeSize ) << "\n\n"
+               << "  max signed: " << llvm::APInt::getSignedMaxValue(IntegerLiteralTypeSize ) << "\n\n"
+               << "  IsMax: " << LiteralValue.isMaxValue() << "\n\n"
+               << "  IsMaxSigned: " << LiteralValue.isMaxSignedValue() << "\n\n"
+               << "  IsMin: " << LiteralValue.isMinValue() << "\n\n"
+               << "  IsMinSigned: " << LiteralValue.isMinSignedValue() << "\n\n"
+               << "--------------------------------" << "\n\n";
+
 
   if (StrippedLiteral.empty())
     return;
 
   const bool RepresentsZero = LiteralValue.isNullValue();
   const bool HasLeadingZeroes = StrippedLiteral[0] == '0';
-  const bool AllBitsAreSet = LiteralValue.isAllOnesValue();
   const bool IntegralPattern =
-      (HasLeadingZeroes && !RepresentsZero) || AllBitsAreSet;
+      (HasLeadingZeroes && !RepresentsZero) || IsFullPattern;
 
   if (IntegralPattern)
     diag(MatchedInt->getBeginLoc(),
